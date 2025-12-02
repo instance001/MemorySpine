@@ -1,0 +1,79 @@
+Usage
+1. Export your ChatGPT data
+
+From ChatGPT, request a data export. When you receive the zip, save it somewhere, e.g.:
+
+~/Downloads/chatgpt-data-export.zip
+
+2. Run MemorySpine on the export
+python memoryspine.py --input ~/Downloads/chatgpt-data-export.zip --output ./output
+
+
+Or, if you have already extracted it and have a conversations.json:
+
+python memoryspine.py --input ./export/ --output ./output
+# or
+python memoryspine.py --input ./export/conversations.json --output ./output
+
+3. Browse your spine
+
+You will get:
+
+output/index.md — a simple chronological index of all conversations
+
+output/YYYY-MM-DDTHH-MM-SS_Title.md — one file per conversation
+
+You can open these in any markdown viewer, text editor, or static site generator.
+
+Output Format
+
+Each conversation markdown file looks roughly like:
+
+# My conversation title
+
+- ID: `conversation-id-here`
+- Created: 2025-11-30T12:34:56
+- Model: `gpt-4.1`
+
+---
+**user** · _2025-11-30T12:34:56_
+
+Hello, world.
+
+---
+**assistant** · _2025-11-30T12:35:10_
+
+Hi! How can I help?
+
+
+If the script cannot understand the message structure for some reason, it will still generate a file and note that raw JSON is stored separately (future versions may add richer handling).
+
+Limitations
+
+This is a minimal v0.1 focused on robustness and simplicity, not features.
+
+It assumes the structure of conversations.json exported by ChatGPT as of late 2024/early 2025.
+
+If the export format changes significantly, parsing logic may need to be updated.
+
+Advanced features (topic clustering, project extraction, summarisation, etc.) are intentionally out-of-scope here.
+
+Roadmap
+
+Future versions may add:
+
+optional tagging or simple heuristics for project grouping
+
+export to HTML or other formats
+
+integration hooks for local search/indexing tools
+
+more robust handling of alternative export schemas
+
+The philosophy of MemorySpine is: local-first, human-readable, inspectable, and legally protected as part of the digital commons.
+
+License
+
+This project is released under the GNU Affero General Public License v3.0 (AGPL-3.0).
+
+See LICENSE for full terms.
