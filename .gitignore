@@ -1,0 +1,16 @@
+# Local ChatGPT exports and generated markdown spines
+/data_export.zip
+/conversations.json
+/export/
+/output/
+
+# Python cache and local editor noise
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/

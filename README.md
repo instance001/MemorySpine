@@ -22,6 +22,12 @@ This is the minimal, stable foundation release. More advanced indexing, project 
 - No dependencies beyond the Python standard library.
 - No network calls, no telemetry, no analytics.
 
+## Storage Layout
+
+MemorySpine does not use app-data folders, background services, or hidden state. It reads only the path passed through `--input` and writes markdown only under the directory passed through `--output`.
+
+If `--output` is omitted, output is written to `./output` relative to the current working directory. That folder is ignored by Git for local runs.
+
 ## Installation
 
 Clone the repo and make sure you have Python 3.9+ installed.

@@ -13,6 +13,7 @@ import json
 import os
 import sys
 import zipfile
+from io import TextIOWrapper
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
@@ -66,10 +67,11 @@ def find_conversations_json(path: Path) -> Tuple[Optional[Path], Optional[zipfil
 def load_conversations(json_path: Path, zf: Optional[zipfile.ZipFile]) -> List[Dict[str, Any]]:
     """Load the conversations JSON either from disk or from a zip."""
     if zf is None:
-        with json_path.open("r", encoding="utf-8") as f:
+        with json_path.open("r", encoding="utf-8-sig") as f:
             return json.load(f)
     else:
-        with zf.open(str(json_path), "r") as f:
+        with zf.open(str(json_path), "r") as raw:
+            f = TextIOWrapper(raw, encoding="utf-8-sig")
             return json.load(f)
 
 def safe_slug(text: str, max_len: int = 80) -> str:
@@ -167,6 +169,7 @@ def write_markdown(conv: Dict[str, Any], messages: List[Dict[str, Any]], out_dir
     slug = safe_slug(title)
     filename = f"{dt_str.replace(':', '-')}_{slug}.md"
     path = out_dir / filename
+    raw_json_path = path.with_suffix(".raw.json")
 
     lines: List[str] = []
     lines.append(f"# {title}")
@@ -180,6 +183,9 @@ def write_markdown(conv: Dict[str, Any], messages: List[Dict[str, Any]], out_dir
     if not messages:
         lines.append("> ⚠️ Unable to parse messages from this conversation format.")
         lines.append("> Raw JSON for this conversation is stored alongside this file.")
+        raw_json_path.parent.mkdir(parents=True, exist_ok=True)
+        with raw_json_path.open("w", encoding="utf-8") as f:
+            json.dump(conv, f, ensure_ascii=False, indent=2)
     else:
         for msg in messages:
             role = msg.get("role", "unknown")
