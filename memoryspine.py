@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-MemorySpine v0.1 – minimal, boring, one-button ChatGPT export parser.
+MemorySpine v0.1 - minimal, boring, one-button ChatGPT export parser.
 
 - Input:  ChatGPT data export (zip), or a conversations.json file, or a folder containing it
 - Output: Markdown files and a simple index under ./output/
@@ -235,7 +235,7 @@ def write_index(conversations: List[Dict[str, Any]], out_dir: Path) -> None:
 
 def main(argv: Optional[List[str]] = None) -> int:
     parser = argparse.ArgumentParser(
-        description="MemorySpine v0.1 – parse ChatGPT export into local markdown spine."
+        description="MemorySpine v0.1 - parse ChatGPT export into local markdown spine."
     )
     parser.add_argument(
         "--input",

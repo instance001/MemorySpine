@@ -2,6 +2,8 @@
 
 **MemorySpine** is a small, boring-on-purpose tool that converts a ChatGPT `conversations.json` export (or full data export zip) into a local, human-readable markdown "spine" of your conversations.
 
+Here, "spine" means a plain local markdown archive plus chronological index. It is not hidden memory, automatic summarisation, or a claim that the tool interprets the conversations for you.
+
 It is designed for:
 
 - basic, offline, personal data sovereignty
